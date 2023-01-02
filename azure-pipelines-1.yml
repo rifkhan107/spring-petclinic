@@ -1,0 +1,30 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'package'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      sudo apt-get update
+      sudo apt-get install nginx -y
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      sudo cp target/my-java-app.jar /var/www/html/
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      sudo service nginx start
