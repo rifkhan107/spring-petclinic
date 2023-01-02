@@ -13,8 +13,3 @@ jobs:
        SourceFolder: '$(System.DefaultWorkingDirectory)'
        TargetFolder: '/var/www/my-app'
 
-- deployment: VMDeploy
-  displayName: Web deploy
-  environment:
-    name:  ubuntu-dev
-    resourceType: VirtualMachine
