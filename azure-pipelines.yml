@@ -6,15 +6,12 @@ jobs:
     displayName: 'Maven Package'
     inputs:
       mavenPomFile: 'pom.xml'
+# Copy files
+# Copy the JAR package to the server where you want to deploy it.
   - task: CopyFiles@2
-    displayName: 'Copy Files to artifact staging directory'
     inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: '**/target/*.?(war|jar)'
-      TargetFolder: $(Build.ArtifactStagingDirectory)
-  - upload: $(Build.ArtifactStagingDirectory)
-    artifact: drop
-
+       SourceFolder: '$(System.DefaultWorkingDirectory)'
+       TargetFolder: '/var/www/my-app'
 
 - deployment: VMDeploy
   displayName: Web deploy
